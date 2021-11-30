@@ -2,7 +2,7 @@
 
 use kartik\datecontrol\Module;
 
-$params = require __DIR__.'/params.php';
+$params = require __DIR__ . '/params.php';
 
 $config = [
     'container' => [
@@ -20,7 +20,7 @@ $config = [
     'id' => 'Template',
     'name' => 'Application',
     // set target language to be Indonesia
-  'language' => 'id-ID',
+    'language' => 'id-ID',
     'as access' => [
      'class' => '\hscstudio\mimin\components\AccessControl',
      'allowActions' => [
@@ -30,11 +30,11 @@ $config = [
       'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
-        'queue/*',
+   //     'queue/*',
+     ],
     ],
-],
 
-   'modules' => [
+    'modules' => [
         'datecontrol' => [
         'class' => 'kartik\datecontrol\Module',
 
@@ -80,58 +80,37 @@ $config = [
                     'options' => ['class' => 'form-control'],
                 ],
             ],
-       ],
-    ],
+        ],
+        ],
 
-   'gridview' => [
+        'gridview' => [
         'class' => '\kartik\grid\Module',
         // enter optional module parameters below - only if you need to
         // use your own export download action or custom translation
         // message source
         // 'downloadAction' => 'gridview/export/download',
         // 'i18n' => []
-    ],
-     'mimin' => [
+        ],
+        'mimin' => [
         'class' => '\hscstudio\mimin\Module',
+        ],
     ],
-   ],
 
   // set source language to be English
-  'sourceLanguage' => 'en-US',
+    'sourceLanguage' => 'en-US',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'queue'],
+    'bootstrap' => ['log'],
     'components' => [
         'formatter' => [
             'dateFormat' => 'dd MMM yyyy',
             'decimalSeparator' => ',',
             'thousandSeparator' => '.',
             'currencyCode' => 'Rp',
-       ],
-
-        'queue' => [
-            'class' => \yii\queue\db\Queue::class,
-            'db' => 'db', // DB connection component or its config
-            'tableName' => '{{%queue}}', // Table name
-            'channel' => 'default', // Queue channel key
-           'as log' => \yii\queue\LogBehavior::class,
-
-            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex that used to sync queries
         ],
 
-        'assetManager' => [
-            'bundles' => [
-                'dosamigos\google\maps\MapAsset' => [
-                    'options' => [
-                        'language' => 'id',
-                        'version' => '3.1.18',
-                    ],
-                ],
-            ],
-        ],
-
-       'authManager' => [
+        'authManager' => [
         'class' => 'yii\rbac\DbManager', // only support DbManager
-    ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'y2B_PhmMeo1G4hPY0dO7KfNled31dl6L',
@@ -147,15 +126,15 @@ $config = [
         */
 
         'urlManager' => [
-       'class' => 'yii\web\UrlManager',
+        'class' => 'yii\web\UrlManager',
        // Hide index.php
-       'showScriptName' => false,
+        'showScriptName' => false,
        // Use pretty URLs
-       'enablePrettyUrl' => true,
-       'rules' => [
-       ],
-   ],
-      'cache' => [
+        'enablePrettyUrl' => true,
+        'rules' => [
+        ],
+        ],
+        'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
@@ -198,7 +177,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__.'/db.php'),
+        'db' => require(__DIR__ . '/db.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -216,9 +195,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-            'panels' => [
-                'queue' => \yii\queue\debug\Panel::class,
-            ],
+       
     ];
 
     $config['bootstrap'][] = 'gii';
@@ -237,7 +214,7 @@ if (YII_ENV_DEV) {
                 'my' => '@app/Templates/model/default',
             ],
         ],
-    ],
+        ],
     ];
 }
 
