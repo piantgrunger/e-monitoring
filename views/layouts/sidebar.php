@@ -16,6 +16,17 @@
               ['label' => 'User', 'icon' => 'user', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                   ], ],
 
+
+[
+                  'visible' => !Yii::$app->user->isGuest,
+                  'label' => 'Master',
+                  'icon' => 'cogs',
+                  'url' => '#',
+                  'items' => [
+              ['label' => 'Guru', 'icon' => 'graduation-cap', 'url' => ['/guru/index'], 'visible' => !Yii::$app->user->isGuest],
+                   ], ],
+
+                  
            
      
           ];
@@ -30,10 +41,10 @@
     ?>
 <aside id="sidebar-wrapper">
   <div class="sidebar-brand">
-    <a href="<?=Url::to(['/'])?>">POS</a>
+    <a href="<?=Url::to(['/'])?>">Monitoring</a>
   </div>
   <div class="sidebar-brand sidebar-brand-sm">
-    <a href="<?=Url::to(['/'])?>">POS</a>
+    <a href="<?=Url::to(['/'])?>">Monitoring</a>
   </div>
   <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
