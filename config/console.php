@@ -8,19 +8,11 @@ $db = require(__DIR__ . '/db.php');
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log','queue'],
+    'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'components' => [
 
-        'queue' => [
-            'class' => \yii\queue\db\Queue::class,
-            'db' => 'db', // DB connection component or its config
-            'tableName' => '{{%queue}}', // Table name
-            'channel' => 'default', // Queue channel key
-           'as log' => \yii\queue\LogBehavior::class,
-
-            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex that used to sync queries
-        ],
+     
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
