@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family:arial;	
+	}
+.judul {
+	font-size:19px;
+	}
+.isi,td{
+	font-size:14px;
+	padding-left:0px;
+	
+	}
+.container {
+	margin-bottom: 5px
+	}
+.item-list{
+	width:100px;
+	float:left;
+	}	
+table ul li {
+	padding:1px;
+	list-style:none;
+	}
