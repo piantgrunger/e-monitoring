@@ -39,6 +39,24 @@ class Guru extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        $user= User::find()->where(['username' => $this->username])->one();
+        if (!$user) {
+            $user = new User();
+        }
+        $user->username = $this->username;
+        $user->setPassword($this->password);
+        $user->auth_key = $this->id_guru;
+        $user->save(false);
+        $authAssignment = new AuthAssignment();
+        $authAssignment->item_name = 'guru';
+        $authAssignment->user_id = $user->id;
+        $authAssignment->save();
+        
+        parent::afterSave($insert, $changedAttributes);
+    }
+
     /**
      * {@inheritdoc}
      */

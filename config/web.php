@@ -34,6 +34,10 @@ $config = [
      ],
     ],
 
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'modules' => [
         'datecontrol' => [
         'class' => 'kartik\datecontrol\Module',
