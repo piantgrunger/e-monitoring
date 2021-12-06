@@ -24,7 +24,11 @@
                   'url' => '#',
                   'items' => [
               ['label' => 'Guru', 'icon' => 'graduation-cap', 'url' => ['/guru/index'], 'visible' => !Yii::$app->user->isGuest],
-                   ], ],
+              ['label' => 'Murid', 'icon' => 'user-tie', 'url' => ['/murid/index'], 'visible' => !Yii::$app->user->isGuest],
+              ['label' => 'Kelas', 'icon' => 'university', 'url' => ['/kelas/index'], 'visible' => !Yii::$app->user->isGuest],
+              ['label' => 'Laporan', 'icon' => 'book', 'url' => ['/laporan/index'], 'visible' => !Yii::$app->user->isGuest],
+                
+            ], ],
 
                   
            
@@ -36,7 +40,7 @@
       if (Yii::$app->user->identity->username !== 'admin') {
           $menuItems = Mimin::filterMenu($menuItems);
       }
-    }
+  }
 
     ?>
 <aside id="sidebar-wrapper">
@@ -52,10 +56,10 @@
       <li class="menu-header">Menu</li>
 
         <?php echo app\widgets\Menu::widget(
-            [
+        [
                 'items' => $menuItems,
             ]
             //Menus::menuItems()
-); ?>
+    ); ?>
     </ul>
 </aside>
