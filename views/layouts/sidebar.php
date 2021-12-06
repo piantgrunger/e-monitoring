@@ -31,7 +31,20 @@
             ], ],
 
                   
-           
+          
+
+[
+  'visible' => !Yii::$app->user->isGuest,
+  'label' => 'Akademik',
+  'icon' => 'book',
+  'url' => '#',
+  'items' => [
+['label' => 'Absensi', 'icon' => 'calendar', 'url' => ['/absensi/index'], 'visible' => !Yii::$app->user->isGuest],
+['label' => 'Daily Report', 'icon' => 'paper-plane', 'url' => ['/report/index'], 'visible' => !Yii::$app->user->isGuest],
+
+], ],
+
+
      
           ];
 
