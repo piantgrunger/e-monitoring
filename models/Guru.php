@@ -48,6 +48,7 @@ class Guru extends \yii\db\ActiveRecord
         $user->username = $this->username;
         $user->setPassword($this->password);
         $user->auth_key = $this->id_guru;
+        $user->jenis_user = 'guru';
         $user->save(false);
         $authAssignment = new AuthAssignment();
         $authAssignment->item_name = 'guru';
