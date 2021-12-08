@@ -66,6 +66,10 @@ class RaportSearch extends Raport
         $query->andFilterWhere(['like', 'hasil_raport', $this->hasil_raport])
             ->andFilterWhere(['like', 'file_raport', $this->file_raport]);
 
+        if (Yii::$app->user->identity->jenis_user =='murid') {
+            $query->andFilterWhere([ 'id_murid', Yii::$app->user->identity->auth_key]);
+        }
+
         return $dataProvider;
     }
 }

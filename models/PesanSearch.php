@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Report;
+use app\models\Pesan;
 
 /**
- * ReportSearch represents the model behind the search form of `app\models\Report`.
+ * PesanSearch represents the model behind the search form of `app\models\Pesan`.
  */
-class ReportSearch extends Report
+class PesanSearch extends Pesan
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ReportSearch extends Report
     public function rules()
     {
         return [
-            [['id_report', 'id_murid'], 'integer'],
-            [['tgl_report', 'hasil_report'], 'safe'],
+            [['id_pesan', 'id_penerima', 'id_pengirim'], 'integer'],
+            [['pesan'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ReportSearch extends Report
      */
     public function search($params)
     {
-        $query = Report::find();
+        $query = Pesan::find();
 
         // add conditions that should always apply here
 
@@ -59,14 +59,12 @@ class ReportSearch extends Report
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_report' => $this->id_report,
-            'id_murid' => $this->id_murid,
-            'tgl_report' => $this->tgl_report,
+            'id_pesan' => $this->id_pesan,
+            'id_penerima' => $this->id_penerima,
+            'id_pengirim' => $this->id_pengirim,
         ]);
-        if (Yii::$app->user->identity->jenis_user =='murid') {
-            $query->andFilterWhere([ 'id_murid', Yii::$app->user->identity->auth_key]);
-        }
-        $query->andFilterWhere(['like', 'hasil_report', $this->hasil_report]);
+
+        $query->andFilterWhere(['like', 'pesan', $this->pesan]);
 
         return $dataProvider;
     }

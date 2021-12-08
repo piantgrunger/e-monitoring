@@ -82,6 +82,52 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
+
+    public function getGuru()
+    {
+        if ($this->jenis_user == 'guru') {
+            return $this->hasOne(Guru::className(), ['id_guru' => 'auth_key']);
+        }
+    }
+
+    public function getMurid()
+    {
+        if ($this->jenis_user == 'murid') {
+            return $this->hasOne(Murid::className(), ['id_murid' => 'auth_key']);
+        }
+        ;
+    }
+
+    public function getNama()
+    {
+        if ($this->guru) {
+            return $this->guru->nama_guru;
+        } elseif ($this->murid) {
+            return $this->murid->nama_murid;
+        } else {
+            return  $this->username;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Finds user by password reset token
      *
