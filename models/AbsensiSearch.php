@@ -63,6 +63,10 @@ class AbsensiSearch extends Absensi
             'tgl_absensi' => $this->tgl_absensi,
             'id_murid' => $this->id_murid,
         ]);
+        
+        if (Yii::$app->user->identity->jenis_user =='murid') {
+            $query->andFilterWhere([ 'id_murid', Yii::$app->user->identity->auth_key]);
+        }
 
         $query->andFilterWhere(['like', 'status_kehadiran', $this->status_kehadiran]);
 
