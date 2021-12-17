@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Absensi */
 
@@ -14,8 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h3><?= Html::encode($this->title) ?></h3>
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form_create', [
         'model' => $model,
+        'absensiDetails' => $absensiDetails,
     ]) ?>
 
 </div>

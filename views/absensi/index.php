@@ -9,6 +9,7 @@ use kartik\export\ExportMenu;
 
 $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             'tgl_absensi',
+            'murid.nisn',
             'murid.nama_murid',
             'status_kehadiran',
 

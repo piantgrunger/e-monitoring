@@ -64,6 +64,7 @@ class LaporanController extends Controller
     public function actionCreate()
     {
         $model = new Laporan();
+        $model->saveOld();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -83,6 +84,7 @@ class LaporanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->saveOld();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -101,17 +103,12 @@ class LaporanController extends Controller
      */
     public function actionDelete($id)
     {
-
-       try
-      {
-        $this->findModel($id)->delete();
-
-      }
-      catch(\yii\db\IntegrityException  $e)
-      {
-	Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
-       }
-         return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+        } catch (\yii\db\IntegrityException  $e) {
+            Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
+        }
+        return $this->redirect(['index']);
     }
 
     /**

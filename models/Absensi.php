@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use mdm\behaviors\ar\RelationTrait;
 
 /**
  * This is the model class for table "absensi".
@@ -19,6 +20,7 @@ class Absensi extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    use RelationTrait;
     public static function tableName()
     {
         return 'absensi';
@@ -60,5 +62,10 @@ class Absensi extends \yii\db\ActiveRecord
     public function getMurid()
     {
         return $this->hasOne(Murid::className(), ['id_murid' => 'id_murid']);
+    }
+
+    public function setAbsensiDetails($value)
+    {
+        $this->loadRelated('absensiDetails', $value);
     }
 }

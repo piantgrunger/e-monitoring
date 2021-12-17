@@ -15,6 +15,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'laporan')->textarea(['rows' => 6 ,'style' => 'height:120px' ]) ?>
 
+    <?= $form->field($model, 'file_laporan')->fileInput() ?>
+
+
+
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

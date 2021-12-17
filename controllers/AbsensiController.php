@@ -64,12 +64,32 @@ class AbsensiController extends Controller
     public function actionCreate()
     {
         $model = new Absensi();
+        $modelMurid =\app\models\Murid::find()->all();
+        $absensiDetails = [];
+        foreach ($modelMurid as $murid) {
+            $absensiDetails[] = new \app\models\AbsensiDetail([
+                'id_murid' => $murid->id_murid,
+                'status_kehadiran' => 'H',
+                'nama_murid' => $murid->nama_murid,
+                'nisn' => $murid->nisn,
+            ]);
+        }
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $absensiDetails = Yii::$app->request->post('AbsensiDetail');
+            foreach ($absensiDetails as $absensiDetail) {
+                $model1 =new Absensi();
+                $model1->id_murid = $absensiDetail['id_murid'];
+                $model1->tgl_absensi = $model->tgl_absensi;
+                $model1->status_kehadiran = $absensiDetail['status_kehadiran'];
+                $model1->save();
+            }
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'absensiDetails' => (empty($absensiDetails)) ? [new \app\models\AbsensiDetail] : $absensiDetails
             ]);
         }
     }
@@ -101,17 +121,12 @@ class AbsensiController extends Controller
      */
     public function actionDelete($id)
     {
-
-       try
-      {
-        $this->findModel($id)->delete();
-
-      }
-      catch(\yii\db\IntegrityException  $e)
-      {
-	Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
-       }
-         return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+        } catch (\yii\db\IntegrityException  $e) {
+            Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
+        }
+        return $this->redirect(['index']);
     }
 
     /**
