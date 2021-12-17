@@ -27,7 +27,7 @@ class Kelas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_murid', 'id_guru'], 'required'],
+            [['id_murid', 'id_guru','id_jenis_kelas'], 'required'],
             [['id_murid', 'id_guru'], 'integer'],
             [['id_murid', 'id_guru'], 'unique', 'targetAttribute' => ['id_murid', 'id_guru'] , 'message' => 'Kelas Murid  sudah ada'],
             
@@ -54,5 +54,10 @@ class Kelas extends \yii\db\ActiveRecord
     public function getGuru()
     {
         return $this->hasOne(Guru::className(), ['id_guru' => 'id_guru']);
+    }
+
+    public function getJenisKelas()
+    {
+        return $this->hasOne(JenisKelas::className(), ['id' => 'id_jenis_kelas']);
     }
 }

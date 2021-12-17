@@ -38,6 +38,21 @@ use yii\helpers\ArrayHelper;
     ]); ?>
 
 
+
+
+<?= $form->field($model, 'id_jenis_kelas')->widget(Select2::className(), [
+        'data' => ArrayHelper::map(\app\models\JenisKelas::find()->all(), 'id', 'nama_kelas'),
+        'options' => [
+            'placeholder' => 'Pilih Jenis Kelas',
+        ],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ]); ?>
+
+
+
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

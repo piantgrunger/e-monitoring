@@ -14,6 +14,7 @@ use  kartik\datecontrol\DateControl;
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
 
+    <?= $form->field($model, 'nisn')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'nama_murid')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nama_walimurid')->textInput(['maxlength' => true]) ?>

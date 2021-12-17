@@ -34,7 +34,8 @@ class Murid extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_murid', 'nama_walimurid', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'tempat_lahir', 'username', 'password'], 'required'],
+            [['nama_murid', 'nama_walimurid', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'tempat_lahir', 'username', 'password','nisn'], 'required'],
+            [['nisn'],'unique'],
             [['alamat'], 'string'],
             [['tanggal_lahir'], 'safe'],
             [['nama_murid', 'nama_walimurid', 'tempat_lahir', 'username', 'password'], 'string', 'max' => 100],
