@@ -21,14 +21,31 @@ CREATE TABLE IF NOT EXISTS `absensi` (
   PRIMARY KEY (`id_absensi`),
   KEY `fk-absensi-id_murid` (`id_murid`),
   CONSTRAINT `fk-absensi-id_murid` FOREIGN KEY (`id_murid`) REFERENCES `murid` (`id_murid`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_monitoring.absensi: ~0 rows (approximately)
+-- Dumping data for table db_monitoring.absensi: ~1 rows (approximately)
 DELETE FROM `absensi`;
 /*!40000 ALTER TABLE `absensi` DISABLE KEYS */;
 INSERT INTO `absensi` (`id_absensi`, `tgl_absensi`, `id_murid`, `status_kehadiran`) VALUES
-	(1, '2021-12-09', 1, 'Hadir');
+	(4, '2021-12-21', 1, 'Hadir'),
+	(5, '2021-12-21', 2, 'Hadir');
 /*!40000 ALTER TABLE `absensi` ENABLE KEYS */;
+
+-- Dumping structure for table db_monitoring.agenda
+CREATE TABLE IF NOT EXISTS `agenda` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` date NOT NULL,
+  `agenda` text NOT NULL,
+  `file` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table db_monitoring.agenda: ~1 rows (approximately)
+DELETE FROM `agenda`;
+/*!40000 ALTER TABLE `agenda` DISABLE KEYS */;
+INSERT INTO `agenda` (`id`, `tanggal`, `agenda`, `file`) VALUES
+	(1, '2021-12-14', '<p>cobaa agendaaa</p>', 'file41e4c46cc29c92709e9f962b9acefc5c.jpg');
+/*!40000 ALTER TABLE `agenda` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.auth_assignment
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
@@ -45,7 +62,8 @@ DELETE FROM `auth_assignment`;
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 	('admin', '1', 1638764403),
 	('guru', '3', NULL),
-	('ortu', '5', NULL);
+	('ortu', '5', NULL),
+	('ortu', '6', NULL);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.auth_item
@@ -63,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table db_monitoring.auth_item: ~12 rows (approximately)
+-- Dumping data for table db_monitoring.auth_item: ~11 rows (approximately)
 DELETE FROM `auth_item`;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
@@ -139,37 +157,57 @@ INSERT INTO `guru` (`id_guru`, `nama_guru`, `alamat`, `no_hp`, `jenis_kelamin`, 
 	(2, 'BUDI', 'zscxzxcaa\r\n', '`121312', 'Laki-laki', 'Budix', '123456');
 /*!40000 ALTER TABLE `guru` ENABLE KEYS */;
 
+-- Dumping structure for table db_monitoring.jenis_kelas
+CREATE TABLE IF NOT EXISTS `jenis_kelas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_kelas` varchar(100) NOT NULL,
+  `keterangan` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama_kelas` (`nama_kelas`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table db_monitoring.jenis_kelas: ~0 rows (approximately)
+DELETE FROM `jenis_kelas`;
+/*!40000 ALTER TABLE `jenis_kelas` DISABLE KEYS */;
+INSERT INTO `jenis_kelas` (`id`, `nama_kelas`, `keterangan`) VALUES
+	(1, 'Kelas-Mawar', '4-5 Tahun\r\n');
+/*!40000 ALTER TABLE `jenis_kelas` ENABLE KEYS */;
+
 -- Dumping structure for table db_monitoring.kelas
 CREATE TABLE IF NOT EXISTS `kelas` (
   `id_kelas` int(11) NOT NULL AUTO_INCREMENT,
   `id_murid` int(11) NOT NULL,
   `id_guru` int(11) NOT NULL,
+  `id_jenis_kelas` int(11) NOT NULL,
   PRIMARY KEY (`id_kelas`),
   KEY `fk-murid-kelas` (`id_murid`),
   KEY `fk-guru-kelas` (`id_guru`),
+  KEY `fk-kelas-jenis_kelas` (`id_jenis_kelas`),
   CONSTRAINT `fk-guru-kelas` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE,
+  CONSTRAINT `fk-kelas-jenis_kelas` FOREIGN KEY (`id_jenis_kelas`) REFERENCES `jenis_kelas` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk-murid-kelas` FOREIGN KEY (`id_murid`) REFERENCES `murid` (`id_murid`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_monitoring.kelas: ~2 rows (approximately)
+-- Dumping data for table db_monitoring.kelas: ~0 rows (approximately)
 DELETE FROM `kelas`;
 /*!40000 ALTER TABLE `kelas` DISABLE KEYS */;
-INSERT INTO `kelas` (`id_kelas`, `id_murid`, `id_guru`) VALUES
-	(1, 1, 2);
+INSERT INTO `kelas` (`id_kelas`, `id_murid`, `id_guru`, `id_jenis_kelas`) VALUES
+	(3, 1, 2, 1);
 /*!40000 ALTER TABLE `kelas` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.laporan
 CREATE TABLE IF NOT EXISTS `laporan` (
   `id_laporan` int(11) NOT NULL AUTO_INCREMENT,
   `laporan` text DEFAULT NULL,
+  `file_laporan` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_laporan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table db_monitoring.laporan: ~0 rows (approximately)
 DELETE FROM `laporan`;
 /*!40000 ALTER TABLE `laporan` DISABLE KEYS */;
-INSERT INTO `laporan` (`id_laporan`, `laporan`) VALUES
-	(1, 'cobaaa');
+INSERT INTO `laporan` (`id_laporan`, `laporan`, `file_laporan`) VALUES
+	(1, 'cobaaa', 'file_laporanb10c199e1d5e31f3056fe14b94f54650.jpg');
 /*!40000 ALTER TABLE `laporan` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.migration
@@ -179,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_monitoring.migration: ~12 rows (approximately)
+-- Dumping data for table db_monitoring.migration: ~19 rows (approximately)
 DELETE FROM `migration`;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -197,7 +235,12 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 	('m211206_085916_create_raport_table', 1638781325),
 	('m211206_123608_create_raport_table', 1638794265),
 	('m211206_132809_alter_raport', 1638797418),
-	('m211208_043236_create_pesan_table', 1638938034);
+	('m211208_043236_create_pesan_table', 1638938034),
+	('m211217_054034_alter_murid', 1639719698),
+	('m211217_055345_create_kelas_table', 1639720516),
+	('m211217_060138_alter_kelas', 1639721288),
+	('m211217_083322_alter_laporan', 1639730135),
+	('m211221_060730_create_agenda_table', 1640067010);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.murid
@@ -212,14 +255,17 @@ CREATE TABLE IF NOT EXISTS `murid` (
   `tempat_lahir` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_murid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `nisn` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_murid`),
+  UNIQUE KEY `nisn` (`nisn`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_monitoring.murid: ~0 rows (approximately)
+-- Dumping data for table db_monitoring.murid: ~2 rows (approximately)
 DELETE FROM `murid`;
 /*!40000 ALTER TABLE `murid` DISABLE KEYS */;
-INSERT INTO `murid` (`id_murid`, `nama_murid`, `nama_walimurid`, `alamat`, `no_hp`, `jenis_kelamin`, `tanggal_lahir`, `tempat_lahir`, `username`, `password`) VALUES
-	(1, 'Budiko', 'Budi', '1323123ZZ', '121212', 'Laki-laki', '2022-01-06', 'Surabaya', 'Budik00', '123456');
+INSERT INTO `murid` (`id_murid`, `nama_murid`, `nama_walimurid`, `alamat`, `no_hp`, `jenis_kelamin`, `tanggal_lahir`, `tempat_lahir`, `username`, `password`, `nisn`) VALUES
+	(1, 'Budiko', 'Budi', '1323123ZZ', '121212', 'Laki-laki', '2022-01-06', 'Surabaya', 'Budik00', '123456', '1212121'),
+	(2, 'Budiko', 'Budi', 'ewqew', '', 'Laki-laki', '2021-12-31', 'Surabaya', 'Budik00s', '123456', '12121210');
 /*!40000 ALTER TABLE `murid` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.pesan
@@ -269,13 +315,15 @@ CREATE TABLE IF NOT EXISTS `report` (
   PRIMARY KEY (`id_report`),
   KEY `idx-report-id_murid` (`id_murid`),
   CONSTRAINT `fk-report-id_murid` FOREIGN KEY (`id_murid`) REFERENCES `murid` (`id_murid`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table db_monitoring.report: ~0 rows (approximately)
+-- Dumping data for table db_monitoring.report: ~3 rows (approximately)
 DELETE FROM `report`;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
 INSERT INTO `report` (`id_report`, `id_murid`, `tgl_report`, `hasil_report`) VALUES
-	(1, 1, '2021-12-28', 'GTEsss');
+	(1, 1, '2021-12-28', 'GTEsss'),
+	(2, 1, '2021-12-31', '<p>cobbba</p>'),
+	(3, 2, '2021-12-31', '<p>testingg</p>');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 
 -- Dumping structure for table db_monitoring.route
@@ -414,15 +462,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table db_monitoring.user: ~2 rows (approximately)
+-- Dumping data for table db_monitoring.user: ~4 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `jenis_user`) VALUES
 	(1, 'admin', 'Bj2xEpff-WmRLtY4TyHPHxRp6eAxsNZ0', '$2y$13$lyzLwLoeBeCxjFtGgQVPquL0qaL6F1ygdBgqTnKE22Q2x.dwAaQ9S', NULL, 'piant.grunger@gmail.com', 10, 1485769884, 1488270381, NULL),
 	(3, 'Budix', '2', '$2y$13$9PzSxFHy.ed5tTJ3c11Z0.ZB.0NBxWUJWhR07fuqzFAs0tKHZmkbi', NULL, NULL, 10, 1638766151, 1638779799, 'guru'),
-	(5, 'Budik00', '1', '$2y$13$06D6XvFHHIOJWmNDAv5qceaXzfuX1P3F/0JhDw7AgmqviCEB6cqB2', NULL, NULL, 10, 1638773221, 1638779820, 'murid');
+	(5, 'Budik00', '1', '$2y$13$R64aFzHl6vd3pwfZO0K2P.84Cs/jPcsHHEJGL5HWa3.ULHy48cRJK', NULL, NULL, 10, 1638773221, 1639720134, 'murid'),
+	(6, 'Budik00s', '2', '$2y$13$d32JO5Ve4OLOYl7.7oZM..OhakB1ibY68yTUP.sZOgGOPn35cTB0K', NULL, NULL, 10, 1639720189, 1639720189, 'murid');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
