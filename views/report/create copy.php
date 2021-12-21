@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Report */
+/* @var $model app\models\Absensi */
 
-$this->title = Yii::t('app', 'Report Baru');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Report'), 'url' => ['index']];
+$this->title = 'Absensi Baru';
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Absensi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="report-create">
+<div class="absensi-create">
 
     <h3><?= Html::encode($this->title) ?></h3>
 

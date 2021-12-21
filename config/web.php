@@ -26,7 +26,7 @@ $config = [
      'allowActions' => [
         // add wildcard allowed action here!
        // 'lokasi/*',
-      // 'site/*',
+      'site/*',
       'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw

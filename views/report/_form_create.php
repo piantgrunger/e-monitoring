@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
 
-    <?= $form->field($model, 'tgl_absensi')->widget(DateControl::className(), [
+    <?= $form->field($model, 'tgl_report')->widget(DateControl::className(), [
         'type'=>DateControl::FORMAT_DATE,
         'options' => [
             'pluginOptions' => [
@@ -36,7 +36,7 @@ use yii\helpers\ArrayHelper;
 
          <th>NISN</th>
             <th width='40%'>Nama</th>
-            <th>Report</th>
+            <th>Laporan</th>
          
           
         </tr>
@@ -45,7 +45,7 @@ use yii\helpers\ArrayHelper;
     <?= \mdm\widgets\TabularInput::widget([
         'id' => 'detail-grid',
         'allModels' => $absensiDetails,
-        'model' => \app\models\AbsensiDetail::className(),
+        'model' => \app\models\ReportDetail::className(),
         'tag' => 'tbody',
         'form' => $form,
         'itemOptions' => ['tag' => 'tr'],
