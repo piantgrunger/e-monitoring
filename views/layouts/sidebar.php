@@ -29,6 +29,7 @@
       
               ['label' => 'Kelas', 'icon' => 'university', 'url' => ['/kelas/index'], 'visible' => !Yii::$app->user->isGuest],
               ['label' => 'Laporan', 'icon' => 'book', 'url' => ['/laporan/index'], 'visible' => !Yii::$app->user->isGuest],
+              ['label' => 'Agenda', 'icon' => 'book', 'url' => ['/agenda/index'], 'visible' => !Yii::$app->user->isGuest],
                 
             ], ],
 
